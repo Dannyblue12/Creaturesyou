@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Filter</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f8ff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin: 20px 0;
+      color: #007bff;
+    }
+
+    /* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 600px;
+  }
+
+  .search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }
+
+  .search-bar button {
+    background-color: #007bff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    cursor: pointer;
+  }
+
+  .search-bar button:hover {
+    background-color: #0056b3;
+  }
+
+  .search-bar button svg {
+    width: 25px;
+    height: 39px;
+    fill: white;
+  }
+
+    /* Loader */
+    .loader {
+      display: none;
+      margin: 20px auto;
+      border: 4px solid #f3f8ff;
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Filter Buttons */
+    .filter-container {
+      position: relative;
+      top:15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .filter-button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+    .filter-button:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+    }
+    .filter-button.active {
+      background-color: #004080;
+      color: white;
+    }
+
+    /* Courses Grid */
+    .courses-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    .course-card {
+      background-color: white;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .course-card:hover {
+      transform: scale(1.05);
+    }
+    .course-card.hidden {
+      display: none;
+    }
+
+    /* Cancel Button */
+    .course-card .cancel-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      display: none;
+    }
+    .course-card.active .cancel-btn {
+      display: block;
+    }
+    .course-card.active {
+      border: 2px solid #007bff;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    /* Unavailable Course Message */
+    .unavailable-message {
+      text-align: center;
+      font-size: 18px;
+      color: red;
+      margin-top: 20px;
+    }
+    .request-link {
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Your Perfect Course</h1>
+
+  <!-- Search Bar -->
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search courses...">
+  <button onclick="searchCourses()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M10 2a8 8 0 105.293 14.293l4.854 4.854a1 1 0 001.415-1.415l-4.854-4.854A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z" />
+    </svg>
+  </button>
+</div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"></div>
+
+  <!-- Filter Buttons -->
+  <div class="filter-container">
+    <button class="filter-button" onclick="filterCourses('all')">All</button>
+    <button class="filter-button" onclick="filterCourses('Data Analyst')">Data Analyst</button>
+    <button class="filter-button" onclick="filterCourses('Personal Branding')">Personal Branding</button>
+    <button class="filter-button" onclick="filterCourses('Artificial Intelligence')">Artificial Intelligence</button>
+    <button class="filter-button" onclick="filterCourses('Blockchain')">Blockchain</button>
+    <button class="filter-button" onclick="filterCourses('Web Development')">Web Development</button>
+  </div>
+
+  <!-- Courses -->
+  <div class="courses-container" id="courseContainer">
+  <!-- Data Analyst Courses -->
+  <div class="course-card" data-category="Data Analyst">
+    Data Analyst Basics
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Data Analyst')">X</button>
+  </div>
+  <div class="course-card" data-category="Data Analyst">
+    Advanced Data Analysis
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Data Analyst')">X</button>
+  </div>
+  <div class="course-card" data-category="Data Analyst">
+    Data Visualization with Python
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Data Analyst')">X</button>
+  </div>
+
+  <!-- Personal Branding Courses -->
+  <div class="course-card" data-category="Personal Branding">
+    Build Your Personal Brand
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Personal Branding')">X</button>
+  </div>
+  <div class="course-card" data-category="Personal Branding">
+    LinkedIn Profile Optimization
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Personal Branding')">X</button>
+  </div>
+  <div class="course-card" data-category="Personal Branding">
+    Networking for Success
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Personal Branding')">X</button>
+  </div>
+
+  <!-- Artificial Intelligence Courses -->
+  <div class="course-card" data-category="Artificial Intelligence">
+    AI for Beginners
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Artificial Intelligence')">X</button>
+  </div>
+  <div class="course-card" data-category="Artificial Intelligence">
+    Machine Learning Fundamentals
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Artificial Intelligence')">X</button>
+  </div>
+  <div class="course-card" data-category="Artificial Intelligence">
+    AI Ethics and Applications
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Artificial Intelligence')">X</button>
+  </div>
+
+  <!-- Blockchain Courses -->
+  <div class="course-card" data-category="Blockchain">
+    Blockchain Essentials
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Blockchain')">X</button>
+  </div>
+  <div class="course-card" data-category="Blockchain">
+    Cryptocurrency Basics
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Blockchain')">X</button>
+  </div>
+  <div class="course-card" data-category="Blockchain">
+    Decentralized Apps (DApps)
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Blockchain')">X</button>
+  </div>
+
+  <!-- Web Development Courses -->
+  <div class="course-card" data-category="Web Development">
+    HTML & CSS for Beginners
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Web Development')">X</button>
+  </div>
+  <div class="course-card" data-category="Web Development">
+    JavaScript Fundamentals
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Web Development')">X</button>
+  </div>
+  <div class="course-card" data-category="Web Development">
+    React.js Basics
+    <button class="cancel-btn" onclick="cancelFilter(event, 'Web Development')">X</button>
+  </div>
+</div>
+  <!-- Message -->
+  <div class="unavailable-message" id="unavailableMessage" style="display: none;">
+    Course unavailable. <span class="request-link">Request this course</span>
+  </div>
+
+  <script>
+    function filterCourses(category) {
+      const buttons = document.querySelectorAll('.filter-button');
+      const courses = document.querySelectorAll('.course-card');
+      buttons.forEach(button => button.classList.remove('active'));
+      courses.forEach(course => {
+        if (category === 'all' || course.dataset.category === category) {
+          course.classList.remove('hidden');
+        } else {
+          course.classList.add('hidden');
+        }
+      });
+      const activeButton = Array.from(buttons).find(btn => btn.textContent === category || category === 'all');
+      if (activeButton) activeButton.classList.add('active');
+    }
+
+    function cancelFilter(event, category) {
+      event.stopPropagation();
+      const courses = document.querySelectorAll(`.course-card[data-category="${category}"]`);
+      courses.forEach(course => course.classList.remove('active'));
+    }
+
+    function searchCourses() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const loader = document.getElementById('loader');
+      const message = document.getElementById('unavailableMessage');
+      const courses = document.querySelectorAll('.course-card');
+      loader.style.display = 'block';
+      message.style.display = 'none';
+
+      setTimeout(() => {
+        loader.style.display = 'none';
+        let found = false;
+        courses.forEach(course => {
+          const title = course.textContent.toLowerCase();
+          if (title.includes(query)) {
+            course.classList.remove('hidden');
+            found = true;
+          } else {
+            course.classList.add('hidden');
+          }
+        });
+        if (!found) {
+          message.style.display = 'block';
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
