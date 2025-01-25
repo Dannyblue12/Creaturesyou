@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gradient-start: rgb(219, 112, 147);
+  --gradient-end: rgb(102, 51, 153);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
