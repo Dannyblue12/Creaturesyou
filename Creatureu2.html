@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreaturesYou - Transform Your Career</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+:root {
+  --primary: #ff4d4d;
+  --secondary: #4169e1;
+  --background: #ffffff;
+  --foreground: #333333;
+  --gray-light: #f8f9fa;
+  --gray: #6c757d;
+  --border-radius: 8px;
+  --container-width: 1200px;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header Styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #fff;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.header-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-img {
+  height: 35px;
+  margin-right: 10px;
+}
+
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.hamburger-menu span {
+  width: 30px;
+  height: 3px;
+  background: var(--primary);
+  transition: var(--transition);
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.nav {
+  position: fixed;
+  top: 70px;
+  right: -100%;
+  width: 100%;
+  height: calc(100vh - 70px);
+  background: var(--background);
+  transition: var(--transition);
+  overflow-y: auto;
+}
+
+.nav.active {
+  right: 0;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  list-style-type: none;
+  padding: 2rem 0;
+}
+
+.nav-link {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 1rem;
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.nav-cta {
+  margin-top: 1rem;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 6px rgba(255, 107, 107, 0.25);
+}
+
+.btn-primary:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(255, 107, 107, 0.3);
+}
+
+.btn-white {
+  background: white;
+  color: var(--primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-white:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-large {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 580px;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  background: linear-gradient(to right, rgba(255, 107, 107, 0.6), rgba(65, 105, 225, 0.6));
+  padding: 0 1rem;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+/* Slider Indicators */
+.slider-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.indicator.active {
+  background-color: white;
+  transform: scale(1.2);
+}
+
+/* Featured Courses Section */
+.featured-courses {
+  padding: 4rem 0;
+}
+
+.featured-courses h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--gray);
+  margin-bottom: 2rem;
+}
+
+.course-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--gray-light);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.course-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.course-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.course-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.course-overlay span {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.course-content {
+  padding: 1.5rem;
+}
+
+.course-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.instructor {
+  color: var(--gray);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stars {
+  color: #ffc107;
+}
+
+.students {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.course-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Features Section */
+.features {
+  padding: 4rem 0;
+  background: var(--gray-light);
+}
+
+.features h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.feature-card {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, var(--secondary) 0%, #2c3e50 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 80%);
+  transform: rotate(45deg);
+}
+
+.testimonials h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.testimonial-slide {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.testimonial-slide.active {
+  display: block;
+}
+
+.testimonial-content {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.testimonial-content blockquote {
+  font-size: 1.25rem;
+  font-style: italic;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.author-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 1rem;
+  border: 3px solid var(--primary);
+}
+
+.author-info {
+  text-align: left;
+}
+
+.author-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.author-title {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.testimonial-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.testimonial-prev,
+.testimonial-next {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border-radius: 50px;
+  transition: var(--transition);
+}
+
+.testimonial-prev:hover,
+.testimonial-next:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* CTA Section */
+.cta {
+  padding: 6rem 0;
+  background: var(--primary);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+}
+
+.cta .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-content {
+  flex: 1;
+  padding-right: 2rem;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.cta-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cta-illustration {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+}
+
+.cta-illustration:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cta .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cta-content {
+    padding-right: 0;
+    margin-bottom: 2rem;
+  }
+
+  .cta-image {
+    justify-content: center;
+  }
+
+  .cta-illustration {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-content {
+    padding: 2rem;
+  }
+
+  .testimonial-content blockquote {
+    font-size: 1rem;
+  }
+
+  .author-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cta h2 {
+    font-size: 2rem;
+  }
+
+  .cta p {
+    font-size: 1rem;
+  }
+}
+.footer {
+  background: #1a1a1a;
+  color: white;
+  padding: 4rem 0 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 4rem;
+  margin-bottom: 2rem;
+}
+
+.footer-logo h3 {
+  margin: 1rem 0;
+}
+
+.footer-logo p {
+  color: var(--gray);
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.footer-column h4 {
+  margin-bottom: 1rem;
+}
+
+.footer-column a {
+  display: block;
+  color: var(--gray);
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  transition: var(--transition);
+}
+
+.footer-column a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--gray);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+  }
+
+  .header-container {
+    flex-wrap: wrap;
+    padding: 1rem 0;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.125rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+  }
+}
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/1000106176-removebg-preview%20(1)~2-SkpHDNb8RqgMYZqG45Tdcm278z8tuX.png" alt="CreaturesYou Logo" class="logo-img">
+                <span>CreaturesYou</span>
+            </a>
+            <button class="hamburger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="courses.html" class="nav-link">Courses</a></li>
+                    <li><a href="features.html" class="nav-link">Features</a></li>
+                    <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li><a href="account.html" class="btn btn-primary nav-cta">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-slider">
+                <div class="hero-slide active">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20(40)-eujK1Rvk2pr3fgeNnb4GNbhLBHAvxG.jpeg" alt="Data Science Excellence" class="hero-bg">
+                    <div class="hero-content">
+                        <h1>Data Science Excellence</h1>
+                        <p>Transform data into actionable insights</p>
+                        <a href="#courses" class="btn btn-white">Explore Courses →</a>
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(42)-2ZBfLnm1keD9NCXW1tqBXXKuoYH8GY.jpeg" alt="AI Innovation" class="hero-bg">
+                    <div class="hero-content">
+                        <h1>AI Innovation</h1>
+                        <p>Shape the future of technology</p>
+                        <a href="#courses" class="btn btn-white">Explore Courses →</a>
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20(41)-wLpp7r7IFXPjFWzcv2IiWU3ZU7bhu1.jpeg" class="hero-bg">
+                    <div class="hero-content">
+                        <h1>Machine Learning Mastery</h1>
+                        <p>Build intelligent systems that learn and adapt</p>
+                        <a href="#courses" class="btn btn-white">Explore Courses →</a>
+                    </div>
+                </div>
+                <div class="slider-indicators">
+                    <button class="indicator active" data-index="0"></button>
+                    <button class="indicator" data-index="1"></button>
+                    <button class="indicator" data-index="2"></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses" class="featured-courses">
+            <div class="container">
+                <h2>Featured Courses</h2>
+                <p class="subtitle">Explore our most popular courses and start your journey today</p>
+                <div class="course-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="development">Development</button>
+                    <button class="filter-btn" data-filter="design">Design</button>
+                    <button class="filter-btn" data-filter="data-science">Data Science</button>
+                    <button class="filter-btn" data-filter="marketing">Marketing</button>
+                </div>
+                <div class="course-grid">
+                    <!-- Course cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Why Choose CreaturesYou?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Expert Instructors</h3>
+                        <p>Learn from industry professionals with years of experience in data science and AI.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>Hands-on Projects</h3>
+                        <p>Apply your skills to real-world scenarios and build an impressive portfolio.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Industry Certification</h3>
+                        <p>Earn recognized certificates to boost your career prospects in the data field.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community Support</h3>
+                        <p>Join a vibrant community of learners and mentors for collaborative growth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2>What Our Students Say</h2>
+                <div class="testimonial-carousel">
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-content">
+                            <blockquote>
+                                "The Machine Learning Mastery course was challenging but incredibly rewarding. I now feel confident in applying ML techniques to real-world problems."
+                            </blockquote>
+                            <div class="testimonial-author">
+                                <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(47)-gPimMaLvUIjXxS588BppFkpcE6EJqI.jpeg" alt="Robert L." class="author-image">
+                                <div class="author-info">
+                                    <div class="author-name">Robert L.</div>
+                                    <div class="author-title">AI Engineer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <blockquote>
+                                "CreaturesYou's Data Science Fundamentals course provided me with a solid foundation. The hands-on projects were particularly valuable."
+                            </blockquote>
+                            <div class="testimonial-author">
+                                <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/photo-pleasant-looking-cheerful-dark-skinned-woman-round-eyewear-kcvsO5sHIduUN550ugbp5xt1PbTktX.jpg" alt="Sarah M." class="author-image">
+                                <div class="author-info">
+                                    <div class="author-name">Sarah M.</div>
+                                    <div class="author-title">Data Analyst</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <blockquote>
+                                "The instructors are top-notch, and the community support is fantastic. I've learned so much and made great connections in the industry."
+                            </blockquote>
+                            <div class="testimonial-author">
+                                <img src="https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(48)-jyNLzCnkZZVtflwkkELsUWauTNzADq.jpeg" alt="Michael K." class="author-image">
+                                <div class="author-info">
+                                    <div class="author-name">Michael K.</div>
+                                    <div class="author-title">Data Scientist</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-controls">
+                    <button class="testimonial-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="testimonial-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Start Your Data Science Journey?</h2>
+                <p>Join thousands of students who are transforming their careers with CreaturesYou.</p>
+                <a href="#" class="btn btn-white btn-large">Get Started Today</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>CreaturesYou</h3>
+                    <p>Empowering data science education</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="#">Blog</a>
+                        <a href="#">Webinars</a>
+                        <a href="#">Documentation</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="#">Terms</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CreaturesYou. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+  // Hamburger menu toggle
+  const hamburgerMenu = document.querySelector(".hamburger-menu")
+  const nav = document.querySelector(".nav")
+
+  hamburgerMenu.addEventListener("click", () => {
+    hamburgerMenu.classList.toggle("active")
+    nav.classList.toggle("active")
+  })
+
+  // Close mobile menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!nav.contains(e.target) && !hamburgerMenu.contains(e.target)) {
+      hamburgerMenu.classList.remove("active")
+      nav.classList.remove("active")
+    }
+  })
+
+  // Close mobile menu when clicking on a nav link
+  const navLinks = document.querySelectorAll(".nav-link")
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      hamburgerMenu.classList.remove("active")
+      nav.classList.remove("active")
+    })
+  })
+
+  // Hero Slider
+  const heroSlider = {
+    currentSlide: 0,
+    slides: document.querySelectorAll(".hero-slide"),
+    indicators: document.querySelectorAll(".indicator"),
+    interval: null,
+
+    init() {
+      this.showSlide(this.currentSlide)
+      this.startAutoPlay()
+      this.setupEventListeners()
+    },
+
+    showSlide(index) {
+      this.slides.forEach((slide) => slide.classList.remove("active"))
+      this.indicators.forEach((indicator) => indicator.classList.remove("active"))
+      this.slides[index].classList.add("active")
+      this.indicators[index].classList.add("active")
+    },
+
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.slides.length
+      this.showSlide(this.currentSlide)
+    },
+
+    prevSlide() {
+      this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length
+      this.showSlide(this.currentSlide)
+    },
+
+    startAutoPlay() {
+      this.stopAutoPlay()
+      this.interval = setInterval(() => this.nextSlide(), 5000)
+    },
+
+    stopAutoPlay() {
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+    },
+
+    setupEventListeners() {
+      // Touch events
+      let startX
+      const slider = document.querySelector(".hero-slider")
+
+      slider.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX
+        this.stopAutoPlay()
+      })
+
+      slider.addEventListener("touchend", (e) => {
+        const endX = e.changedTouches[0].clientX
+        const diff = startX - endX
+
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) {
+            this.nextSlide()
+          } else {
+            this.prevSlide()
+          }
+        }
+
+        this.startAutoPlay()
+      })
+
+      // Indicator clicks
+      this.indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+          this.currentSlide = index
+          this.showSlide(this.currentSlide)
+          this.startAutoPlay()
+        })
+      })
+    },
+  }
+
+  heroSlider.init()
+
+  // Course Filtering
+  const courses = [
+    {
+      id: 1,
+      title: "Complete Web Development Bootcamp",
+      instructor: "Sarah Johnson",
+      rating: 4.5,
+      students: 15420,
+      price: 79.99,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(43)-fx1gdQFjSjUz7Nhp0fL5xhJJ7dNpeD.jpeg",
+      category: "development",
+    },
+    {
+      id: 2,
+      title: "UX/UI Design Masterclass",
+      instructor: "Michael Chen",
+      rating: 4.8,
+      students: 8750,
+      price: 89.99,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(44)-g5bWDCTev5jTsfWkFotjXAJhNikX9M.jpeg",
+      category: "design",
+    },
+    {
+      id: 3,
+      title: "Data Science Fundamentals",
+      instructor: "Emily Rodriguez",
+      rating: 4.7,
+      students: 12300,
+      price: 99.99,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(45)-ulMnUdwQg8iAw97tzs5svQeUbMxh54.jpeg",
+      category: "data-science",
+    },
+    {
+      id: 4,
+      title: "Digital Marketing Strategies",
+      instructor: "Alex Thompson",
+      rating: 4.6,
+      students: 9800,
+      price: 69.99,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(46)-tFSTk1zFYYwcTvmwBfUgoOsr8PlO8B.jpeg",
+      category: "marketing",
+    },
+  ]
+
+  const courseGrid = document.querySelector(".course-grid")
+  const filterButtons = document.querySelectorAll(".filter-btn")
+
+  function renderCourses(coursesToRender) {
+    courseGrid.innerHTML = ""
+    coursesToRender.forEach((course) => {
+      const courseCard = `
+                <div class="course-card" data-category="${course.category}">
+                    <div class="course-image">
+                        <img src="${course.image}" alt="${course.title}">
+                        <div class="course-overlay">
+                            <span>Beginner</span>
+                            <span>8 weeks</span>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>${course.title}</h3>
+                        <p class="instructor">${course.instructor}</p>
+                        <div class="rating">
+                            <div class="stars">
+                                ${getStarRating(course.rating)}
+                            </div>
+                            <span class="students">(${course.students.toLocaleString()} students)</span>
+                        </div>
+                        <div class="course-footer">
+                            <span class="price">$${course.price.toFixed(2)}</span>
+                            <a href="#" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            `
+      courseGrid.insertAdjacentHTML("beforeend", courseCard)
+    })
+  }
+
+  function getStarRating(rating) {
+    const fullStars = Math.floor(rating)
+    const halfStar = rating % 1 >= 0.5
+    let stars = ""
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars += '<i class="fas fa-star"></i>'
+      } else if (i === fullStars && halfStar) {
+        stars += '<i class="fas fa-star-half-alt"></i>'
+      } else {
+        stars += '<i class="far fa-star"></i>'
+      }
+    }
+
+    return stars
+  }
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.getAttribute("data-filter")
+      filterButtons.forEach((btn) => btn.classList.remove("active"))
+      button.classList.add("active")
+
+      const filteredCourses = filter === "all" ? courses : courses.filter((course) => course.category === filter)
+
+      renderCourses(filteredCourses)
+    })
+  })
+
+  // Initial render
+  renderCourses(courses)
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault()
+      const target = document.querySelector(this.getAttribute("href"))
+      if (target) {
+        const headerOffset = 70
+        const elementPosition = target.getBoundingClientRect().top
+        const offsetPosition = elementPosition - headerOffset
+
+        window.scrollBy({
+          top: offsetPosition,
+          behavior: "smooth",
+        })
+      }
+    })
+  })
+
+  // Intersection Observer for animations
+  const animateOnScroll = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in")
+          animateOnScroll.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.1 },
+  )
+
+  document.querySelectorAll(".course-card, .feature-card").forEach((element) => {
+    animateOnScroll.observe(element)
+  })
+
+  // Testimonial Carousel
+  const testimonialCarousel = {
+    currentSlide: 0,
+    slides: document.querySelectorAll(".testimonial-slide"),
+    prevBtn: document.querySelector(".testimonial-prev"),
+    nextBtn: document.querySelector(".testimonial-next"),
+    touchStartX: 0,
+    touchEndX: 0,
+
+    init() {
+      this.showSlide(this.currentSlide)
+      this.setupEventListeners()
+    },
+
+    showSlide(index) {
+      this.slides.forEach((slide) => slide.classList.remove("active"))
+      this.slides[index].classList.add("active")
+    },
+
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.slides.length
+      this.showSlide(this.currentSlide)
+    },
+
+    prevSlide() {
+      this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length
+      this.showSlide(this.currentSlide)
+    },
+
+    setupEventListeners() {
+      this.prevBtn.addEventListener("click", () => this.prevSlide())
+      this.nextBtn.addEventListener("click", () => this.nextSlide())
+
+      const testimonialSection = document.querySelector(".testimonials")
+
+      testimonialSection.addEventListener("touchstart", (e) => {
+        this.touchStartX = e.changedTouches[0].screenX
+      })
+
+      testimonialSection.addEventListener("touchend", (e) => {
+        this.touchEndX = e.changedTouches[0].screenX
+        this.handleSwipe()
+      })
+    },
+
+    handleSwipe() {
+      const swipeThreshold = 50
+      const diff = this.touchStartX - this.touchEndX
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          this.nextSlide()
+        } else {
+          this.prevSlide()
+        }
+      }
+    },
+  }
+
+  testimonialCarousel.init()
+})
+    </script>
+</body>
+</html>
+
