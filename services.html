@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreaturesYou - Discover Top Talents</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+  --primary: #ff4d4d;
+  --secondary: #4169e1;
+  --background: #f8f9fa;
+  --foreground: #333333;
+  --gray-light: #e9ecef;
+  --gray: #6c757d;
+  --white: #ffffff;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+.header {
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-link {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary);
+}
+
+/* Button Styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: #5753e0;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #8e2de2 100%);
+  color: var(--white);
+  padding: 8rem 0 4rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.search-bar {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  font-size: 1rem;
+}
+
+.search-btn {
+  background-color: var(--secondary);
+  color: var(--white);
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.search-btn:hover {
+  background-color: #45a049;
+}
+
+/* Categories Section */
+.categories {
+  padding: 4rem 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.category-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.category-btn:hover,
+.category-btn.active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.category-btn i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Talents Section */
+.talents {
+  padding: 4rem 0;
+  background-color: var(--gray-light);
+}
+
+.talents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.talent-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.talent-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.talent-header {
+  position: relative;
+}
+
+.talent-cover {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.talent-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--white);
+  position: absolute;
+  bottom: -40px;
+  left: 20px;
+}
+
+.talent-info {
+  padding: 3rem 1.5rem 1.5rem;
+}
+
+.talent-name {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.talent-category {
+  color: var(--gray);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.talent-rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.talent-rating .stars {
+  color: #ffc107;
+  margin-right: 0.5rem;
+}
+
+.talent-rating span {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.talent-rate {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.talent-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.skill-badge {
+  background-color: var(--gray-light);
+  color: var(--foreground);
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+
+.talent-action {
+  padding: 1rem 1.5rem;
+  background-color: var(--gray-light);
+  text-align: center;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: var(--foreground);
+  color: var(--white);
+  padding: 4rem 0 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-logo h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-logo p {
+  opacity: 0.8;
+}
+
+.footer-links h4,
+.footer-social h4 {
+  margin-bottom: 1rem;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links a {
+  color: var(--white);
+  opacity: 0.8;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  opacity: 1;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--white);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-icon:hover {
+  background-color: var(--primary);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 1rem;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0;
+  }
+
+  .btn-primary {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search.search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input {
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+  }
+
+  .search-btn {
+    border-radius: var(--border-radius);
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .talents-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}
+    </style>
+</head>
+<body>    
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Discover Exceptional Talent</h1>
+                <p class="hero-subtitle">Connect with top professionals to bring your projects to life</p>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search for talents...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories">
+            <div class="container">
+                <h2 class="section-title">Explore Categories</h2>
+                <div class="category-grid">
+                    <button class="category-btn active" data-category="All">
+                        <i class="fas fa-globe"></i>
+                        <span>All</span>
+                    </button>
+                    <button class="category-btn" data-category="Graphics Design">
+                        <i class="fas fa-palette"></i>
+                        <span>Graphics Design</span>
+                    </button>
+                    <button class="category-btn" data-category="Web Development">
+                        <i class="fas fa-code"></i>
+                        <span>Web Development</span>
+                    </button>
+                    <button class="category-btn" data-category="Data Analysis">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Data Analysis</span>
+                    </button>
+                    <button class="category-btn" data-category="UI/UX Design">
+                        <i class="fas fa-pencil-ruler"></i>
+                        <span>UI/UX Design</span>
+                    </button>
+                    <button class="category-btn" data-category="Digital Marketing">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Digital Marketing</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="talents">
+            <div class="container">
+                <h2 class="section-title">Featured Talents</h2>
+                <div class="talents-grid" id="talents-grid">
+                    <!-- Talent cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>CreaturesYou</h3>
+                    <p>Connecting talents with opportunities</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CreaturesYou. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+  const talents = [
+    {
+      id: 1,
+      name: "Alice Johnson",
+      category: "Graphics Design",
+      rating: 4.8,
+      reviews: 127,
+      hourlyRate: 45,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/photo-pleasant-looking-cheerful-dark-skinned-woman-round-eyewear-kcvsO5sHIduUN550ugbp5xt1PbTktX.jpg",
+      cover: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(53)-IRjxLDGSAoz5bvBkmhWs4bAdHR9RP5.jpeg",
+      skills: ["Photoshop", "Illustrator", "InDesign"],
+    },
+    {
+      id: 2,
+      name: "Lydia Smith",
+      category: "Web Development",
+      rating: 4.9,
+      reviews: 203,
+      hourlyRate: 60,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(49)-UrWyuDcaLMquSEG6nnExwBn9Uec84t.jpeg",
+      cover: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(43)-fx1gdQFjSjUz7Nhp0fL5xhJJ7dNpeD.jpeg",
+      skills: ["React", "Node.js", "MongoDB"],
+    },
+    {
+      id: 3,
+      name: "Carol Williams",
+      category: "Data Analysis",
+      rating: 4.7,
+      reviews: 89,
+      hourlyRate: 55,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(51)-Nk6Sj5n2iH0iWsfgazV7UFxvT3yrYn.jpeg",
+      cover: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(45)-ulMnUdwQg8iAw97tzs5svQeUbMxh54.jpeg",
+      skills: ["Python", "R", "Tableau"],
+    },
+    {
+      id: 4,
+      name: "David Brown",
+      category: "UI/UX Design",
+      rating: 4.9,
+      reviews: 156,
+      hourlyRate: 65,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(50)-36cwFRjMPEunfawzB7WSeVhVGPJKL8.jpeg",
+      cover: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(54)-Yfy0zrIctbWYjKNjyc6jkHVmqb5DDa.jpeg",
+      skills: ["Figma", "Sketch", "Adobe XD"],
+    },
+    {
+      id: 5,
+      name: "James Martinez",
+      category: "Digital Marketing",
+      rating: 4.8,
+      reviews: 112,
+      hourlyRate: 50,
+      image: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(52)-iwkgGs9YPbwt7WB09prJVRNYTGRMdX.jpeg",
+      cover: "https://vorv4jye8h09tbza.public.blob.vercel-storage.com/images%20(55)-RmTuVzD0kzxH8z8mrTZAzzWjKkMAZA.jpeg",
+      skills: ["SEO", "Social Media", "Content Marketing"],
+    },
+  ]
+
+  const talentsGrid = document.getElementById("talents-grid")
+  const searchInput = document.getElementById("search-input")
+  const categoryButtons = document.querySelectorAll(".category-btn")
+
+  let currentCategory = "All"
+
+  function renderTalents(filteredTalents) {
+    talentsGrid.innerHTML = ""
+    filteredTalents.forEach((talent) => {
+      const talentCard = `
+                <div class="talent-card">
+                    <div class="talent-header">
+                        <img src="${talent.cover}" alt="" class="talent-cover">
+                        <img src="${talent.image}" alt="${talent.name}" class="talent-avatar">
+                    </div>
+                    <div class="talent-info">
+                        <h3 class="talent-name">${talent.name}</h3>
+                        <p class="talent-category">${talent.category}</p>
+                        <div class="talent-rating">
+                            <div class="stars">
+                                ${getStarRating(talent.rating)}
+                            </div>
+                            <span>${talent.rating} (${talent.reviews} reviews)</span>
+                        </div>
+                        <div class="talent-rate">$${talent.hourlyRate}/hr</div>
+                        <div class="talent-skills">
+                            ${talent.skills.map((skill) => `<span class="skill-badge">${skill}</span>`).join("")}
+                        </div>
+                    </div>
+                    <div class="talent-action">
+                        <button class="btn btn-primary">Hire ${talent.name.split(" ")[0]}</button>
+                    </div>
+                </div>
+            `
+      talentsGrid.insertAdjacentHTML("beforeend", talentCard)
+    })
+  }
+
+  function getStarRating(rating) {
+    const fullStars = Math.floor(rating)
+    const halfStar = rating % 1 >= 0.5
+    let stars = ""
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars += '<i class="fas fa-star"></i>'
+      } else if (i === fullStars && halfStar) {
+        stars += '<i class="fas fa-star-half-alt"></i>'
+      } else {
+        stars += '<i class="far fa-star"></i>'
+      }
+    }
+
+    return stars
+  }
+
+  function filterTalents() {
+    const searchTerm = searchInput.value.toLowerCase()
+    const filteredTalents = talents.filter(
+      (talent) =>
+        (currentCategory === "All" || talent.category === currentCategory) &&
+        talent.name.toLowerCase().includes(searchTerm),
+    )
+    renderTalents(filteredTalents)
+  }
+
+  searchInput.addEventListener("input", filterTalents)
+
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      categoryButtons.forEach((btn) => btn.classList.remove("active"))
+      button.classList.add("active")
+      currentCategory = button.dataset.category
+      filterTalents()
+    })
+  })
+
+  // Initial render
+  renderTalents(talents)
+})
+    </script>
+</body>
+</html>
+
